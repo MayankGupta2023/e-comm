@@ -1,0 +1,9 @@
+# Ignore environment files
+.env
+
+# Ignore Node.js dependencies (frontend)
+node_modules/
+
+# Ignore Python bytecode and cache files (backend)
+__pycache__/
+db.sqlite3
