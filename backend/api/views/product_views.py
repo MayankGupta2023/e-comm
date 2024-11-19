@@ -15,21 +15,26 @@ from api.serializers import ProductSerializer
 # get all product with querry
 @api_view(['GET'])
 def getProducts(request):
-    query = request.query_params.get('keyword')
-    if query == None:
-        query = ''
+    query = request.query_params.get('keyword', '')  # Default to an empty string if keyword is None
     products = Product.objects.filter(name__icontains=query).order_by('-_id')
-    page = request.query_params.get('page')
+
+    # Handle pagination
+    page = request.query_params.get('page', '1')  # Default to page 1 if not provided
     paginator = Paginator(products, 8)
+    
     try:
         products = paginator.page(page)
     except PageNotAnInteger:
         products = paginator.page(1)
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
-    if page == None:
+
+    # Convert page to an integer safely
+    try:
+        page = int(page) if page.isdigit() else 1
+    except ValueError:
         page = 1
-    page = int(page) 
+
     serializer = ProductSerializer(products, many=True)
     return Response({'products': serializer.data, 'page': page, 'pages': paginator.num_pages})
 

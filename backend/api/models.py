@@ -16,7 +16,7 @@ class Product(models.Model):
     image = ImageField(null=True, blank=True, default='/image/placeholder.png', upload_to='images/')
     brand = CharField(max_length=200, null=True, blank=True)
     category = CharField(max_length=200, null=True, blank=True)
-    description = CharField(max_length=200, null=True, blank=True)
+    description = CharField(max_length=1000, null=True, blank=True)
     rating = DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
     numReviews = IntegerField(null=True, blank=True, default=0)
     price = DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)

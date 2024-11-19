@@ -19,11 +19,18 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# from django.middleware.csrf import get_token
+# from django.http import JsonResponse
+
+# def csrf(request):
+#     return JsonResponse({'csrfToken': get_token(request)})
+ 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/products/', include('api.urls.product_urls')),
     path('api/users/', include('api.urls.user_urls')),
     path('api/orders/', include('api.urls.order_urls')),
+    # path('api/csrf/', csrf),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)    # this is use for image url

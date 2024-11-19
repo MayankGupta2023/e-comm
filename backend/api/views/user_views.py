@@ -13,6 +13,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from api.models import *
 from api.serializers import UserSerializer, UserSerializerWithToken
 
+from django.views.decorators.csrf import csrf_exempt
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
@@ -43,6 +45,7 @@ def getRoutes(request):
     return Response(routes)
 
 @api_view(['POST'])
+@csrf_exempt
 def registerUser(request):
     data = request.data
     try:
